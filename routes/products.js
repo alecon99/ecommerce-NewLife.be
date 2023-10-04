@@ -85,10 +85,12 @@ product.get('/filterProducts/:filter', async(req,res)=>{
     
     try {
         const findIsActive = await ProductModel.find({ "category": filter })
+        const counter = await ProductModel.find({ "category": filter }).count()
 
         res.status(200).send({
             statusCode: 200,
-            products: findIsActive
+            products: findIsActive,
+            counter: counter
         })
     } catch (error) {
         res.status(500).send({
